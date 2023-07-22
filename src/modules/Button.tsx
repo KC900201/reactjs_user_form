@@ -2,13 +2,13 @@ import * as React from 'react'
 
 type ButtonProps = {
   name: string
-  buttonFunc: () => void
+  onClick: () => void
 }
 
-function Button({ name, buttonFunc }: ButtonProps) {
+function Button({ name, onClick }: ButtonProps) {
   return (
     <button
-      onClick={buttonFunc}
+      onClick={onClick}
       style={{ width: 'fit-content', maxWidth: '500px' }}
     >
       {name}

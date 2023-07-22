@@ -1,7 +1,14 @@
 import * as React from 'react'
 import Button from '../modules/Button'
+import { UserType } from '../App'
 
-function AddUserForm() {
+type AddUserProps = {
+  addUser: (nextUser: UserType) => void
+}
+
+function AddUserForm({ addUser }: AddUserProps) {
+  const newUser: UserType = { name: undefined, age: undefined }
+
   return (
     <div
       style={{
@@ -21,6 +28,7 @@ function AddUserForm() {
       <input
         type="text"
         id="name"
+        value={newUser.name}
         required
         style={{ width: '-webkit-fill-available' }}
       />
@@ -29,12 +37,14 @@ function AddUserForm() {
         type="text"
         id="age"
         required
+        value={newUser.age}
         style={{ width: '-webkit-fill-available' }}
       />
       <Button
         name="Add User"
-        buttonFunc={() => {
-          alert('Hello')
+        onClick={() => {
+          console.log('new user: ', newUser)
+          addUser(newUser)
         }}
       />
     </div>
