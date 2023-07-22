@@ -7,7 +7,22 @@ type AddUserProps = {
 }
 
 function AddUserForm({ addUser }: AddUserProps) {
-  const newUser: UserType = { name: undefined, age: undefined }
+  const [newUser, updateUser] = React.useState<UserType>({
+    name: undefined,
+    age: undefined,
+  })
+
+  const updateName = (nextName: string) => {
+    updateUser((prevState) => {
+      return { ...prevState, name: nextName }
+    })
+  }
+
+  const updateAge = (nextAge: number) => {
+    updateUser((prevState) => {
+      return { ...prevState, age: nextAge }
+    })
+  }
 
   return (
     <div
@@ -31,6 +46,9 @@ function AddUserForm({ addUser }: AddUserProps) {
         value={newUser.name}
         required
         style={{ width: '-webkit-fill-available' }}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          updateName(event.target.value)
+        }}
       />
       <label style={{ fontWeight: '700' }}>Age (Years)</label>
       <input
@@ -38,12 +56,15 @@ function AddUserForm({ addUser }: AddUserProps) {
         id="age"
         required
         value={newUser.age}
+        pattern="[0-9.]+"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          updateAge(parseInt(event.target.value))
+        }}
         style={{ width: '-webkit-fill-available' }}
       />
       <Button
         name="Add User"
         onClick={() => {
-          console.log('new user: ', newUser)
           addUser(newUser)
         }}
       />

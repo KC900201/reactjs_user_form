@@ -6,14 +6,18 @@ type UsersListProps = {
 }
 
 function UsersList({ userList }: UsersListProps) {
-  console.table(userList)
   return (
     <div
       style={{
+        backgroundColor: '#FFFFFF',
         width: '500px',
         margin: '1rem auto',
         padding: '1rem',
         borderRadius: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'baseline',
       }}
     >
       {userList.map((u, i) => (
