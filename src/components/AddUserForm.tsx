@@ -18,9 +18,19 @@ function AddUserForm() {
       }}
     >
       <label style={{ fontWeight: '700' }}>Username</label>
-      <input type="text" id="name" required />
+      <input
+        type="text"
+        id="name"
+        required
+        style={{ width: '-webkit-fill-available' }}
+      />
       <label style={{ fontWeight: '700' }}>Age (Years)</label>
-      <input type="text" id="age" required />
+      <input
+        type="text"
+        id="age"
+        required
+        style={{ width: '-webkit-fill-available' }}
+      />
       <Button
         name="Add User"
         buttonFunc={() => {
