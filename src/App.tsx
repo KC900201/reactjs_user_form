@@ -5,7 +5,7 @@ import UsersList from './components/UsersList'
 
 export interface UserType {
   name?: string
-  age?: number
+  age?: string
 }
 
 function App() {
