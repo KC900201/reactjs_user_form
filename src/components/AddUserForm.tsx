@@ -49,6 +49,7 @@ function AddUserForm({ addUser }: AddUserProps) {
     if (newUser.name.trim().length <= 0) {
       return
     }
+    // Check the input age by converting to integer
     if (+newUser.age <= 0) {
       return
     }
