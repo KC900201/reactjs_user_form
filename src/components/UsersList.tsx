@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { UserType } from '../App'
+import Card from '../modules/Card'
 
 type UsersListProps = {
   userList: UserType[]
@@ -7,23 +8,16 @@ type UsersListProps = {
 
 function UsersList({ userList }: UsersListProps) {
   return (
-    <div
-      style={{
-        backgroundColor: '#FFFFFF',
-        width: '500px',
-        margin: '1rem auto',
-        padding: '1rem',
-        borderRadius: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-      }}
-    >
-      {userList.map((u, i) => (
-        <label key={`user_${i}`}>{`${u.name} (${u.age})`}</label>
-      ))}
-    </div>
+    <Card>
+      <ul style={{ gap: '1rem' }}>
+        {userList.map((u, i) => (
+          <li
+            style={{ padding: '5px' }}
+            key={`user_${i}`}
+          >{`${u.name} (${u.age})`}</li>
+        ))}
+      </ul>
+    </Card>
   )
 }
 
