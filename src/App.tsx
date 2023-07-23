@@ -9,7 +9,7 @@ export interface UserType {
 }
 
 function App() {
-  const [users, addUsers] = React.useState<UserType[]>([{}])
+  const [users, addUsers] = React.useState<UserType[]>([])
 
   const addNewUser = React.useCallback(
     (user: UserType) => {

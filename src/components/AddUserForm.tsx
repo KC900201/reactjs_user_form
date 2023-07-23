@@ -25,7 +25,7 @@ function AddUserForm({ addUser }: AddUserProps) {
   }
 
   return (
-    <div
+    <form
       style={{
         backgroundColor: '#FFFFFF',
         display: 'flex',
@@ -37,6 +37,9 @@ function AddUserForm({ addUser }: AddUserProps) {
         margin: '1rem auto',
         padding: '1rem',
         borderRadius: '10px',
+      }}
+      onSubmit={(event: React.FormEvent) => {
+        event.preventDefault()
       }}
     >
       <label style={{ fontWeight: '700' }}>Username</label>
@@ -56,9 +59,13 @@ function AddUserForm({ addUser }: AddUserProps) {
         id="age"
         required
         value={newUser.age}
-        pattern="[0-9.]+"
+        pattern="/^[0-9\b]+$/"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          updateAge(parseInt(event.target.value))
+          updateAge(
+            !isNaN(parseInt(event.target.value))
+              ? parseInt(event.target.value)
+              : 0
+          )
         }}
         style={{ width: '-webkit-fill-available' }}
       />
@@ -68,7 +75,7 @@ function AddUserForm({ addUser }: AddUserProps) {
           addUser(newUser)
         }}
       />
-    </div>
+    </form>
   )
 }
 
