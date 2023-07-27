@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Card from '../modules/Card'
 import Button from '../modules/Button'
-import { UserType } from '../App'
+import { UserType, ErrorMessageInterface } from '../App'
 
 const FormWrapper = styled.form`
   display: flex;
@@ -16,6 +16,8 @@ const FormWrapper = styled.form`
 
 type AddUserProps = {
   addUser: (nextUser: UserType) => void
+  setError: (isError: boolean) => void
+  setErrorMessage: (nextErrorMessage: ErrorMessageInterface) => void
 }
 
 const initialUser: UserType = {
@@ -23,7 +25,7 @@ const initialUser: UserType = {
   age: '',
 }
 
-function AddUserForm({ addUser }: AddUserProps) {
+function AddUserForm({ addUser, setError, setErrorMessage }: AddUserProps) {
   const [newUser, updateUser] = React.useState<UserType>(initialUser)
 
   const updateName = React.useCallback(
@@ -43,14 +45,26 @@ function AddUserForm({ addUser }: AddUserProps) {
 
   const onSubmitForm = React.useCallback(() => {
     if (!newUser.name || !newUser.age) {
+      setError(true)
       return
     }
 
     if (newUser.name.trim().length <= 0) {
+      setError(true)
+      setErrorMessage({
+        title: 'Invalid name',
+        message: 'Please input name',
+      })
       return
     }
     // Check the input age by converting to integer
     if (+newUser.age <= 0) {
+      setError(true)
+      setErrorMessage({
+        title: 'Invalid age',
+        message: 'Please input proper age value',
+      })
+
       return
     }
 
