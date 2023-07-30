@@ -49,27 +49,32 @@ function AddUserForm({ addUser }: AddUserProps) {
     })
   }
 
-  const onSubmitForm = React.useCallback(() => {
-    if (!newUser.name || newUser.name.trim().length <= 0) {
-      setErrorMessage({
-        title: 'Invalid name',
-        message: 'Please input name',
-      })
-      return
-    }
-    // Check the input age by converting to integer
-    if (!newUser.age || +newUser.age <= 0) {
-      setErrorMessage({
-        title: 'Invalid age',
-        message: 'Please input proper age value',
-      })
+  const onSubmitForm = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
 
-      return
-    }
+      if (!newUser.name || newUser.name.trim().length <= 0) {
+        setErrorMessage({
+          title: 'Invalid name',
+          message: 'Please input name',
+        })
+        return
+      }
+      // Check the input age by converting to integer
+      if (!newUser.age || +newUser.age <= 0) {
+        setErrorMessage({
+          title: 'Invalid age',
+          message: 'Please input proper age value',
+        })
 
-    addUser(newUser)
-    updateUser(initialUser)
-  }, [newUser, addUser, setErrorMessage])
+        return
+      }
+
+      addUser(newUser)
+      updateUser(initialUser)
+    },
+    [newUser, addUser, setErrorMessage]
+  )
 
   const errorHandler = () => {
     setErrorMessage(null)

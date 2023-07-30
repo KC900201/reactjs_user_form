@@ -27,7 +27,7 @@ const StyledButton = styled.button<{ type?: string }>(
 type ButtonProps = {
   name: string
   type?: string
-  onClick: () => void
+  onClick: (e: React.MouseEvent) => void
 }
 
 function Button({ name, type, onClick }: ButtonProps) {
