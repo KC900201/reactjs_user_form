@@ -8,9 +8,13 @@ const CardWrapper = styled.section`
   width: 500px;
   border-radius: 10px;
 `
+type CardProps = {
+  cardStyle?: React.CSSProperties | undefined
+  children: React.ReactNode
+}
 
-function Card(props: any) {
-  return <CardWrapper>{props.children}</CardWrapper>
+function Card({ cardStyle, children }: CardProps) {
+  return <CardWrapper style={cardStyle}>{children}</CardWrapper>
 }
 
 export default Card

@@ -1,17 +1,7 @@
-import * as React from 'react'
 import styled from 'styled-components'
 
 import Card from '../modules/Card'
 import Button from './Button'
-
-const ErrorWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 0.5rem;
-`
 
 const Backdrop = styled.div`
   position: fixed;
@@ -24,31 +14,48 @@ const Backdrop = styled.div`
 `
 
 type ErrorModalProps = {
-  title: string
+  title?: string
   errorMessage?: string
-  disableError: (error: boolean) => void
+  disableError: () => void
 }
 
 function ErrorModal({ title, errorMessage, disableError }: ErrorModalProps) {
+  const ErrorCard = Card
+
   return (
     <>
       <Backdrop />
-      <Card>
-        <ErrorWrapper>
-          <header>
-            <h2>{title}</h2>
-          </header>
-          <text>{errorMessage ?? ''}</text>
-          <footer>
-            <Button
-              name="Okay"
-              onClick={() => {
-                disableError(true)
-              }}
-            />
-          </footer>
-        </ErrorWrapper>
-      </Card>
+      <ErrorCard
+        cardStyle={{
+          position: 'fixed',
+          top: '30vh',
+          left: '10%',
+          width: '80%',
+          zIndex: '100',
+          overflow: 'hidden',
+        }}
+      >
+        <header style={{ background: '#4f005f', padding: '1rem' }}>
+          <h2 style={{ margin: '0', color: 'white' }}>{title}</h2>
+        </header>
+        <section style={{ padding: '1rem' }}>
+          <p>{errorMessage ?? ''}</p>
+        </section>
+        <footer
+          style={{
+            display: 'flex',
+            padding: '1rem',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button
+            name="Okay"
+            onClick={() => {
+              disableError()
+            }}
+          />
+        </footer>
+      </ErrorCard>
     </>
   )
 }

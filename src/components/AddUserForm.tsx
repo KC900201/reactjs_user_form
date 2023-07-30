@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 import Card from '../modules/Card'
 import Button from '../modules/Button'
-import { UserType, ErrorMessageInterface } from '../App'
+import ErrorModal from '../modules/ErrorModal'
+import { UserType } from '../App'
 
 const FormWrapper = styled.form`
   display: flex;
@@ -16,8 +17,11 @@ const FormWrapper = styled.form`
 
 type AddUserProps = {
   addUser: (nextUser: UserType) => void
-  setError: (isError: boolean) => void
-  setErrorMessage: (nextErrorMessage: ErrorMessageInterface) => void
+}
+
+interface ErrorMessageInterface {
+  title: string
+  message: string
 }
 
 const initialUser: UserType = {
@@ -25,8 +29,10 @@ const initialUser: UserType = {
   age: '',
 }
 
-function AddUserForm({ addUser, setError, setErrorMessage }: AddUserProps) {
+function AddUserForm({ addUser }: AddUserProps) {
   const [newUser, updateUser] = React.useState<UserType>(initialUser)
+  const [errorMessage, setErrorMessage] =
+    React.useState<ErrorMessageInterface | null>()
 
   const updateName = React.useCallback(
     (nextName: string) => {
@@ -44,13 +50,7 @@ function AddUserForm({ addUser, setError, setErrorMessage }: AddUserProps) {
   }
 
   const onSubmitForm = React.useCallback(() => {
-    if (!newUser.name || !newUser.age) {
-      setError(true)
-      return
-    }
-
-    if (newUser.name.trim().length <= 0) {
-      setError(true)
+    if (!newUser.name || newUser.name.trim().length <= 0) {
       setErrorMessage({
         title: 'Invalid name',
         message: 'Please input name',
@@ -58,8 +58,7 @@ function AddUserForm({ addUser, setError, setErrorMessage }: AddUserProps) {
       return
     }
     // Check the input age by converting to integer
-    if (+newUser.age <= 0) {
-      setError(true)
+    if (!newUser.age || +newUser.age <= 0) {
       setErrorMessage({
         title: 'Invalid age',
         message: 'Please input proper age value',
@@ -70,41 +69,54 @@ function AddUserForm({ addUser, setError, setErrorMessage }: AddUserProps) {
 
     addUser(newUser)
     updateUser(initialUser)
-  }, [newUser, addUser, updateUser])
+  }, [newUser, addUser, setErrorMessage])
+
+  const errorHandler = () => {
+    setErrorMessage(null)
+  }
 
   return (
-    <Card>
-      <FormWrapper
-        onSubmit={(event: React.FormEvent) => {
-          event.preventDefault()
-        }}
-      >
-        <label style={{ fontWeight: '700' }}>Username</label>
-        <input
-          type="text"
-          id="name"
-          value={newUser.name}
-          required
-          style={{ width: '-webkit-fill-available' }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateName(event.target.value)
-          }}
+    <>
+      {errorMessage && (
+        <ErrorModal
+          title={errorMessage?.title}
+          errorMessage={errorMessage?.message}
+          disableError={errorHandler}
         />
-        <label style={{ fontWeight: '700' }}>Age (Years)</label>
-        <input
-          type="number"
-          id="age"
-          required
-          value={newUser.age}
-          pattern="/^[0-9\b]+$/"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            updateAge(event.target.value.toString().trim())
+      )}
+      <Card>
+        <FormWrapper
+          onSubmit={(event: React.FormEvent) => {
+            event.preventDefault()
           }}
-          style={{ width: '-webkit-fill-available' }}
-        />
-        <Button name="Add User" onClick={onSubmitForm} />
-      </FormWrapper>
-    </Card>
+        >
+          <label style={{ fontWeight: '700' }}>Username</label>
+          <input
+            type="text"
+            id="name"
+            value={newUser.name}
+            required
+            style={{ width: '-webkit-fill-available' }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              updateName(event.target.value)
+            }}
+          />
+          <label style={{ fontWeight: '700' }}>Age (Years)</label>
+          <input
+            type="number"
+            id="age"
+            required
+            value={newUser.age}
+            pattern="/^[0-9\b]+$/"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              updateAge(event.target.value.toString().trim())
+            }}
+            style={{ width: '-webkit-fill-available' }}
+          />
+          <Button name="Add User" onClick={onSubmitForm} />
+        </FormWrapper>
+      </Card>
+    </>
   )
 }
 
