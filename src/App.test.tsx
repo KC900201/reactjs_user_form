@@ -2,8 +2,17 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import App from './App'
 
-test('renders add user form', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/Username/i)
-  expect(linkElement).toBeInTheDocument()
+describe('test rendering UI layout', () => {
+  test('renders add user form', () => {
+    // Arrange
+    render(<App />)
+
+    // Act
+    // ... nothing
+
+    const linkElement = screen.getByText(/Username/i, { exact: false })
+
+    // Assert
+    expect(linkElement).toBeInTheDocument()
+  })
 })
