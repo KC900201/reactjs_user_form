@@ -2,11 +2,7 @@ import React from 'react'
 import './App.css'
 import AddUserForm from './components/AddUserForm'
 import UsersList from './components/UsersList'
-
-export interface UserType {
-  name?: string
-  age?: string
-}
+import { UserType } from './models/UserType'
 
 function App() {
   const [users, addUsers] = React.useState<UserType[]>([])

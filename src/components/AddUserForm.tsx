@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Card from '../modules/Card'
 import Button from '../modules/Button'
 import ErrorModal from '../modules/ErrorModal'
-import { UserType } from '../App'
+import { UserType } from '../models/UserType'
 
 const FormWrapper = styled.form`
   display: flex;

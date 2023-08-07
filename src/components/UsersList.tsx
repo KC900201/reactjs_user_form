@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { UserType } from '../App'
+import { UserType } from '../models/UserType'
 import Card from '../modules/Card'
 
 type UsersListProps = {
