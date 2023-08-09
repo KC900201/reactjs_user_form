@@ -6,11 +6,11 @@ import { UserContext } from './context/UserContext'
 
 function App() {
   const userContext = React.useContext(UserContext)
-  const { users, addNewUser } = userContext
+  const { users } = userContext
 
   return (
     <>
-      <AddUserForm addUser={addNewUser} />
+      <AddUserForm />
       {users.length > 0 && <UsersList userList={users} />}
     </>
   )

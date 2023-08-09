@@ -5,6 +5,7 @@ import Card from '../modules/Card'
 import Button from '../modules/Button'
 import ErrorModal from '../modules/ErrorModal'
 import { UserType } from '../models/UserType'
+import { UserContext } from '../context/UserContext'
 
 const FormWrapper = styled.form`
   display: flex;
@@ -14,10 +15,6 @@ const FormWrapper = styled.form`
   align-items: flex-start;
   padding: 1rem;
 `
-
-type AddUserProps = {
-  addUser: (nextUser: UserType) => void
-}
 
 interface ErrorMessageInterface {
   title: string
@@ -29,7 +26,10 @@ const initialUser: UserType = {
   age: '',
 }
 
-function AddUserForm({ addUser }: AddUserProps) {
+function AddUserForm() {
+  const userContext = React.useContext(UserContext)
+  const { addNewUser } = userContext
+
   const [newUser, updateUser] = React.useState<UserType>(initialUser)
   const [errorMessage, setErrorMessage] =
     React.useState<ErrorMessageInterface | null>()
@@ -70,10 +70,10 @@ function AddUserForm({ addUser }: AddUserProps) {
         return
       }
 
-      addUser(newUser)
+      addNewUser(newUser)
       updateUser(initialUser)
     },
-    [newUser, addUser, setErrorMessage]
+    [newUser, addNewUser, setErrorMessage]
   )
 
   const errorHandler = () => {
