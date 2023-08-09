@@ -2,17 +2,11 @@ import React from 'react'
 import './App.css'
 import AddUserForm from './components/AddUserForm'
 import UsersList from './components/UsersList'
-import { UserType } from './models/UserType'
+import { UserContext } from './context/UserContext'
 
 function App() {
-  const [users, addUsers] = React.useState<UserType[]>([])
-
-  const addNewUser = React.useCallback(
-    (user: UserType) => {
-      addUsers((prev) => [...prev, user])
-    },
-    [addUsers]
-  )
+  const userContext = React.useContext(UserContext)
+  const { users, addNewUser } = userContext
 
   return (
     <>
