@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import Card from '../modules/Card'
 import Button from '../modules/Button'
 import ErrorModal from '../modules/ErrorModal'
-import { UserType } from '../models/UserType'
-import { UserContext } from '../context/UserContext'
+import { initialUser, UserContext } from '../context/UserContext'
+import { MessageContext } from '../context/MessageContext'
 
 const FormWrapper = styled.form`
   display: flex;
@@ -16,22 +16,10 @@ const FormWrapper = styled.form`
   padding: 1rem;
 `
 
-interface ErrorMessageInterface {
-  title: string
-  message: string
-}
-
-const initialUser: UserType = {
-  name: '',
-  age: '',
-}
-
 function AddUserForm() {
   const { newUser, updateAge, updateName, updateUser, addNewUser } =
     React.useContext(UserContext)
-
-  const [errorMessage, setErrorMessage] =
-    React.useState<ErrorMessageInterface | null>()
+  const { errorMessage, setErrorMessage } = React.useContext(MessageContext)
 
   const onSubmitForm = React.useCallback(
     (e: React.MouseEvent) => {
@@ -44,6 +32,7 @@ function AddUserForm() {
         })
         return
       }
+
       // Check the input age by converting to integer
       if (!newUser.age || +newUser.age <= 0) {
         setErrorMessage({
@@ -57,7 +46,7 @@ function AddUserForm() {
       addNewUser(newUser)
       updateUser(initialUser)
     },
-    [newUser, addNewUser, updateUser]
+    [newUser, addNewUser, updateUser, setErrorMessage]
   )
 
   const errorHandler = () => {

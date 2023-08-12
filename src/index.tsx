@@ -4,12 +4,15 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import UserProvider from './context/UserContext'
+import MessageProvider from './context/MessageContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <MessageProvider>
+        <App />
+      </MessageProvider>
     </UserProvider>
   </React.StrictMode>
 )

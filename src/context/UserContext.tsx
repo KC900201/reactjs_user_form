@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { UserType } from '../models/UserType'
 
-const initialUser: UserType = {
+export const initialUser: UserType = {
   name: '',
   age: '',
 }
