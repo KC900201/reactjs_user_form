@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { UserType } from '../models/UserType'
 import Card from '../modules/Card'
+import { UserContext } from '../context/UserContext'
 
-type UsersListProps = {
-  userList: UserType[]
-}
+function UsersList() {
+  const userContext = React.useContext(UserContext)
+  const { users: userList } = userContext
 
-function UsersList({ userList }: UsersListProps) {
   return (
     <Card>
       <ul style={{ gap: '1rem', listStyle: 'none', padding: '1rem' }}>

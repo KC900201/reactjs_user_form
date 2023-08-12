@@ -4,9 +4,7 @@ import AddUserForm from './AddUserForm'
 
 describe('testing rendering without crash', () => {
   test('render AddUserForm component', () => {
-    const addUserBtn = jest.fn()
-
-    render(<AddUserForm addUser={addUserBtn} />)
+    render(<AddUserForm />)
 
     expect(screen.getByText('Username')).toBeInTheDocument()
   })
@@ -14,9 +12,7 @@ describe('testing rendering without crash', () => {
   // User interaction testing
   test('render form after clicking button', () => {
     // Arrange
-    const addUserHandler = jest.fn()
-
-    render(<AddUserForm addUser={addUserHandler} />)
+    render(<AddUserForm />)
 
     // Act
     const addUserButton = screen.getByRole('button')
