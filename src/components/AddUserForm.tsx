@@ -27,27 +27,11 @@ const initialUser: UserType = {
 }
 
 function AddUserForm() {
-  const userContext = React.useContext(UserContext)
-  const { addNewUser } = userContext
+  const { newUser, updateAge, updateName, updateUser, addNewUser } =
+    React.useContext(UserContext)
 
-  const [newUser, updateUser] = React.useState<UserType>(initialUser)
   const [errorMessage, setErrorMessage] =
     React.useState<ErrorMessageInterface | null>()
-
-  const updateName = React.useCallback(
-    (nextName: string) => {
-      updateUser((prevState) => {
-        return { ...prevState, name: nextName }
-      })
-    },
-    [updateUser]
-  )
-
-  const updateAge = (nextAge?: string) => {
-    updateUser((prevState) => {
-      return { ...prevState, age: nextAge }
-    })
-  }
 
   const onSubmitForm = React.useCallback(
     (e: React.MouseEvent) => {
@@ -73,7 +57,7 @@ function AddUserForm() {
       addNewUser(newUser)
       updateUser(initialUser)
     },
-    [newUser, addNewUser, setErrorMessage]
+    [newUser, addNewUser, updateUser]
   )
 
   const errorHandler = () => {
