@@ -5,8 +5,7 @@ import UsersList from './components/UsersList'
 import { UserContext } from './context/UserContext'
 
 function App() {
-  const userContext = React.useContext(UserContext)
-  const { users } = userContext
+  const { users } = React.useContext(UserContext)
 
   return (
     <>
